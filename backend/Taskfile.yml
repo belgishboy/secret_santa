@@ -1,0 +1,23 @@
+  version: 3
+
+  tasks:
+    lint:
+      desc: Runs the linter
+      cmds: [ ./gradlew spotlessApply ]
+
+    check-lint:
+      desc: Checks if the linter has been run
+      cmds:
+        - ./gradlew spotlessCheck
+
+    test:
+      desc: Runs gradlew clean and then runs the tests
+      cmds: [ ./gradlew clean test ]
+
+    build:
+      desc: Builds the backend module
+      cmds: [ ./gradlew build ]
+
+    clean:
+      desc: Cleans the module
+      cmds: [ ./gradlew clean ]
