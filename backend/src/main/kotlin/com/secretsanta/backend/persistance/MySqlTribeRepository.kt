@@ -1,11 +1,16 @@
 package com.secretsanta.backend.persistance
 
-import com.secretsanta.backend.model.*
+import com.secretsanta.backend.model.FamilyName
+import com.secretsanta.backend.model.NoSuchPerson
+import com.secretsanta.backend.model.Person
+import com.secretsanta.backend.model.Tribe
+import com.secretsanta.backend.model.TribeName
+import com.secretsanta.backend.model.TribeRepository
 import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.stereotype.Repository
 
 @Repository
-class MySqlTribeRepository( private val jdbcTemplate: JdbcTemplate) : TribeRepository{
+class MySqlTribeRepository(private val jdbcTemplate: JdbcTemplate) : TribeRepository {
 
     lateinit var tribeName: TribeName
 
@@ -13,13 +18,13 @@ class MySqlTribeRepository( private val jdbcTemplate: JdbcTemplate) : TribeRepos
         initTable()
     }
 
-    fun setTribe (tribeName: TribeName) {
+    fun setTribe(tribeName: TribeName) {
         this.tribeName = tribeName
     }
 
     private fun initTable() {
         jdbcTemplate.update(
-                """
+            """
                 CREATE TABLE if not exists ${tribeName.name}(
                 id VARCHAR(36) PRIMARY KEY NOT NULL,
                 name VARCHAR(32) NOT NULL,
@@ -32,28 +37,29 @@ class MySqlTribeRepository( private val jdbcTemplate: JdbcTemplate) : TribeRepos
     override fun save(person: Person) {
         val saveStatement = "INSERT INTO ${tribeName.name} (id, name, familyName, email) VALUES (?,?,?,?)"
         jdbcTemplate.update(
-                saveStatement,
-                person.id,
-                person.name,
-                person.familyName.name,
-                person.email,
+            saveStatement,
+            person.id,
+            person.name,
+            person.familyName.name,
+            person.email,
         )
     }
 
     override fun findAll(): Tribe {
-        return Tribe(tribeName,
-                jdbcTemplate.query(
-                        """
+        return Tribe(
+            tribeName,
+            jdbcTemplate.query(
+                """
             SELECT id, name, familyName, email
             FROM ${tribeName.name}""",
-                ) { result, _ ->
-                    Person(
-                            result.getString("id"),
-                            result.getString("name"),
-                            FamilyName.valueOf(result.getString("familyName")),
-                            result.getString("email")
-                    )
-                },
+            ) { result, _ ->
+                Person(
+                    result.getString("id"),
+                    result.getString("name"),
+                    FamilyName.valueOf(result.getString("familyName")),
+                    result.getString("email"),
+                )
+            },
         )
     }
 
@@ -69,5 +75,4 @@ class MySqlTribeRepository( private val jdbcTemplate: JdbcTemplate) : TribeRepos
     private fun dropTable() {
         jdbcTemplate.update("DROP TABLE IF EXISTS ${tribeName.name}")
     }
-
 }

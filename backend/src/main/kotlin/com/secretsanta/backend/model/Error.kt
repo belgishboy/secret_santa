@@ -1,7 +1,7 @@
 package com.secretsanta.backend.model
 
-class InvalidInput: Exception()
+class SamePerson : Exception()
 
-class NoSuchPerson: Exception()
+class NoSuchPerson : Exception()
 
-class InvalidPair: Exception()
+class SameFamily : Exception()

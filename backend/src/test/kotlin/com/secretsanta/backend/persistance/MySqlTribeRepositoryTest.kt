@@ -1,13 +1,16 @@
 package com.secretsanta.backend.persistance
 
 import com.secretsanta.backend.model.NoSuchPerson
-import com.secretsanta.backend.model.aPersonWithAName
 import com.secretsanta.backend.model.TribeName
-import org.junit.jupiter.api.*
+import com.secretsanta.backend.model.aPersonWithAName
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestInstance
+import org.junit.jupiter.api.assertThrows
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.junit.jupiter.api.Assertions.assertEquals
-
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class MySqlTribeRepositoryTest {
@@ -32,16 +35,16 @@ class MySqlTribeRepositoryTest {
 
     @Test
     fun `Persists a person`() {
-        //given
+        // given
         val vincent = aPersonWithAName("Vincent")
         val saskia = aPersonWithAName("Saskia")
 
-        //when
+        // when
         mySqlTribeRepositoryTest.save(vincent)
         mySqlTribeRepositoryTest.save(saskia)
         val persons = mySqlTribeRepositoryTest.findAll()
 
-        //then
+        // then
         assertEquals(2, persons.persons.size)
     }
 

@@ -2,7 +2,7 @@ package com.secretsanta.backend.model
 
 data class Tribe(val tribe: TribeName, val persons: List<Person>)
 
-data class Person (val id: String, val name: String, val familyName: FamilyName, val email: String)
+data class Person(val id: String, val name: String, val familyName: FamilyName, val email: String)
 
 enum class FamilyName {
     Luc,
@@ -11,10 +11,10 @@ enum class FamilyName {
     Bernard,
     Ghislaine,
     Gregoire,
-    Sonk
+    Sonk,
 }
 
 enum class TribeName {
     Heymans,
-    Erpicum
+    Erpicum,
 }
