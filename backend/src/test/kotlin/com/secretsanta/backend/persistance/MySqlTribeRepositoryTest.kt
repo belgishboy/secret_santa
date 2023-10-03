@@ -1,6 +1,6 @@
 package com.secretsanta.backend.persistance
 
-import com.secretsanta.backend.aPersonWithAName
+import com.secretsanta.backend.model.aPersonWithAName
 import com.secretsanta.backend.model.TribeName
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
@@ -9,7 +9,6 @@ import org.junit.jupiter.api.TestInstance
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertTrue
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)

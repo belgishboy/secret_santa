@@ -1,7 +1,5 @@
-package com.secretsanta.backend
+package com.secretsanta.backend.model
 
-import com.secretsanta.backend.model.FamilyName
-import com.secretsanta.backend.model.Person
 import java.util.UUID
 
 const val anEmail = "something@something.com"
