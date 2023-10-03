@@ -57,13 +57,9 @@ class MySqlTribeRepository( private val jdbcTemplate: JdbcTemplate) : TribeRepos
         )
     }
 
-    override fun loadById(id: String): Person {
-        TODO("Not yet implemented")
-    }
+    override fun loadById(id: String): Person = findAll().persons.firstOrNull { person -> person.id == id } ?: throw NoSuchPerson()
 
-    override fun loadByName(name: String): Person {
-        TODO("Not yet implemented")
-    }
+    override fun loadByName(name: String): Person = findAll().persons.firstOrNull { person -> person.name == name } ?: throw NoSuchPerson()
 
     override fun clear() {
         dropTable()
